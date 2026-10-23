@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1c1622;
+  --color-ivory: #f7f4ee;
+  --color-sand: #ece6db;
+  --color-plum: #4b2e63;
+  --color-lilac: #cdbcf2;
+  --color-muted: #5f5868;
+  --color-line: rgb(28 22 34 / 0.12);
+}
+
+@theme inline {
+  --font-display: var(--font-serif), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-ink);
+}
+
+@utility container-x {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+@utility btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-plum);
+  outline-offset: 3px;
+}
+
+.bg-ink :focus-visible {
+  outline-color: var(--color-lilac);
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee 45s linear infinite;
+}
+
+.marquee:hover,
+.marquee-pause:checked ~ .marquee {
+  animation-play-state: paused;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+    width: 100%;
+    flex-shrink: 1;
+  }
+  .marquee > ul {
+    flex-shrink: 1;
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+  }
+  .marquee > [aria-hidden="true"] {
+    display: none;
+  }
+}
