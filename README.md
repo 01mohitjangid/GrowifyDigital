@@ -1,6 +1,6 @@
 # Growify Digital: website redesign
 
-A redesign and working prototype of [growify.in](https://growify.in), made for the Growify Digital AI Generalist assignment. It positions Growify as one growth, commerce, AI and product company for luxury, couture and jewellery brands.
+A redesign and working prototype of [growify.in](https://growify.in), made for the Growify Digital AI Generalist . It positions Growify as one growth, commerce, AI and product company for luxury, couture and jewellery brands.
 
 This is not the live Growify website.
 
