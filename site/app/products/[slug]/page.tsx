@@ -63,7 +63,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
         <section className="bg-ink text-ivory">
           <div className="container-x py-20">
             <h2 className="font-display text-4xl md:text-5xl">How it works</h2>
-            <ol className="mt-12 grid gap-8 md:grid-cols-4">
+            <ol data-reveal="stagger" className="mt-12 grid gap-8 md:grid-cols-4">
               {product.steps.map((step, i) => (
                 <li key={step} className="border-t border-ivory/25 pt-6">
                   <span className="font-display text-5xl text-lilac">{i + 1}</span>
@@ -78,7 +78,7 @@ export default async function ProductPage({ params }: PageProps<"/products/[slug
       {product.proof && (
         <section className="container-x py-20">
           <h2 className="eyebrow">In numbers</h2>
-          <dl className="mt-8 grid grid-cols-2 gap-10 md:grid-cols-4">
+          <dl data-reveal="stagger" className="mt-8 grid grid-cols-2 gap-10 md:grid-cols-4">
             {product.proof.map((p) => (
               <div key={p.label} className="flex flex-col-reverse">
                 <dt className="mt-2 text-sm text-muted">

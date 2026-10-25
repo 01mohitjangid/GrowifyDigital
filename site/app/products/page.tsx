@@ -28,7 +28,7 @@ export default function ProductsPage() {
         <ul className="space-y-6">
           {live.map((p) => (
             <li key={p.slug}>
-              <Link href={`/products/${p.slug}`} className="group grid gap-8 rounded-3xl bg-ink p-10 text-ivory hover:bg-plum md:grid-cols-2 md:p-14">
+              <Link href={`/products/${p.slug}`} className="lift group grid gap-8 rounded-3xl bg-ink p-10 text-ivory hover:bg-plum md:grid-cols-2 md:p-14">
                 <div>
                   <span className="rounded-full bg-lilac px-3 py-1 text-xs text-ink">{p.status}</span>
                   <p className="mt-8 font-display text-6xl">{p.name}</p>
@@ -36,7 +36,9 @@ export default function ProductsPage() {
                 </div>
                 <div className="flex flex-col justify-between gap-8">
                   <p className="text-xl text-ivory/85">{p.summary}</p>
-                  <span className="text-sm">See how {p.name} works →</span>
+                  <span className="text-sm">
+                    See how {p.name} works <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+                  </span>
                 </div>
               </Link>
             </li>
@@ -46,7 +48,7 @@ export default function ProductsPage() {
         <ul className="mt-6 grid gap-6 md:grid-cols-2">
           {planned.map((p) => (
             <li key={p.slug}>
-              <Link href={`/products/${p.slug}`} className="flex h-full flex-col rounded-3xl border border-line bg-white p-10 hover:border-ink">
+              <Link href={`/products/${p.slug}`} className="lift flex h-full flex-col rounded-3xl border border-line bg-white p-10 hover:border-ink">
                 <span className="self-start rounded-full border border-ink/25 px-3 py-1 text-xs">{p.status}</span>
                 <span className="mt-8 font-display text-5xl">{p.name}</span>
                 <span className="mt-3 text-muted">Details coming soon. See what we need to complete this page.</span>
@@ -63,7 +65,7 @@ export default function ProductsPage() {
       <section className="border-t border-line bg-sand/60">
         <div className="container-x py-20">
           <h2 className="max-w-3xl font-display text-4xl md:text-5xl">How services, products and solutions fit together</h2>
-          <dl className="mt-10 grid gap-6 md:grid-cols-3">
+          <dl data-reveal="stagger" className="mt-10 grid gap-6 md:grid-cols-3">
             {fit.map((f) => (
               <div key={f.name} className="rounded-2xl bg-ivory p-8">
                 <dt className="text-xl font-medium">{f.name}</dt>
