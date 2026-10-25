@@ -3,6 +3,7 @@ import { Inter, Instrument_Serif } from "next/font/google";
 import Analytics from "@/components/Analytics";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import Reveal from "@/components/Reveal";
 import { JsonLd } from "@/components/ui";
 import { SITE_URL, contact, isLive, orgRef } from "@/content/site";
 import "./globals.css";
@@ -35,7 +36,7 @@ const organization = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" className={`${inter.variable} ${serif.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`${inter.variable} ${serif.variable}`}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <JsonLd data={organization} />
         <Header />
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <Analytics />
+        <Reveal />
       </body>
     </html>
   );
