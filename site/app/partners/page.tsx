@@ -31,14 +31,14 @@ export default function PartnersPage() {
 
       <div className="container-x divide-y divide-line border-y border-line">
         {partnerGroups.map((g) => (
-          <section key={g.category} className="grid gap-8 py-12 md:grid-cols-[1fr_2fr]">
+          <section key={g.category} data-reveal className="grid gap-8 py-12 md:grid-cols-[1fr_2fr]">
             <div>
               <h2 className="font-display text-3xl">{g.category}</h2>
               <p className="mt-3 text-muted">{g.value}</p>
             </div>
             <ul className="grid gap-4 sm:grid-cols-2">
               {g.partners.map((p) => (
-                <li key={p.name} className="rounded-2xl border border-line bg-white p-6">
+                <li key={p.name} className="lift rounded-2xl border border-line bg-white p-6 hover:border-ink">
                   <p className="text-xl font-medium">{p.name}</p>
                   <p className="mt-2 text-sm text-muted">{p.does}</p>
                   <p className="mt-4 flex flex-wrap gap-2">

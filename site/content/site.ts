@@ -544,6 +544,8 @@ export const partnerGroups: { category: string; value: string; partners: Partner
   },
 ];
 
+export type Photo = { src: string; alt: string };
+
 export type Blueprint = {
   slug: string;
   name: string;
@@ -552,7 +554,7 @@ export type Blueprint = {
   description: string;
   sections: { name: string; detail: string }[];
   inputs: string[];
-  images?: { src: string; alt: string }[];
+  images?: Photo[];
   tour?: Tour;
 };
 
@@ -682,6 +684,9 @@ export const enquiryTopics = [
   ...products.filter((p) => p.live).map((p) => ({ value: p.slug, label: `${p.name} demo` })),
   { value: "not-sure", label: "Not sure yet" },
 ];
+
+const lifeTour = blueprints.find((b) => b.slug === "life-at-growify")!.tour!;
+export const officePhotos: Photo[] = [...lifeTour.stops].reverse().map((s) => ({ src: s.image, alt: s.alt }));
 
 export const serviceBySlug = (slug: string) => services.find((s) => s.slug === slug);
 export const caseStudyBySlug = (slug: string) => caseStudies.find((c) => c.slug === slug);

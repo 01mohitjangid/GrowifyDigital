@@ -18,10 +18,10 @@ export default function ServicesPage() {
           run underneath every move.
         </p>
       </PageHeader>
-      <ol className="container-x border-t border-ink pb-20">
+      <ol data-reveal="stagger" className="container-x border-t border-ink pb-20">
         {services.map((s) => (
           <li key={s.slug} className="border-b border-line">
-            <Link href={`/services/${s.slug}`} className="group grid gap-4 py-10 md:grid-cols-[6rem_1fr_1.2fr_auto] md:items-baseline">
+            <Link href={`/services/${s.slug}`} className="group grid gap-4 py-10 transition-colors duration-300 hover:bg-white/60 md:grid-cols-[6rem_1fr_1.2fr_auto] md:items-baseline md:px-4">
               <span className="font-display text-6xl text-plum">{s.letter}</span>
               <span>
                 <span className="eyebrow block">{s.move}</span>
@@ -29,7 +29,9 @@ export default function ServicesPage() {
                 {s.signature && <span className="mt-2 inline-block rounded-full bg-lilac/50 px-3 py-1 text-xs">Signature service</span>}
               </span>
               <span className="text-muted">{s.summary}</span>
-              <span className="text-sm group-hover:text-plum">Explore →</span>
+              <span className="text-sm group-hover:text-plum">
+                Explore <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+              </span>
             </Link>
           </li>
         ))}

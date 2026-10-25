@@ -5,7 +5,7 @@ import MobileMenu from "./MobileMenu";
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-ivory/90 backdrop-blur">
+    <header className="header-shade sticky top-0 z-40 border-b border-line bg-ivory/90 backdrop-blur">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:bg-ivory focus:p-2">
         Skip to content
       </a>
@@ -17,7 +17,7 @@ export default function Header() {
           <ul className="flex gap-8 text-sm">
             {nav.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="hover:text-plum">
+                <Link href={item.href} className="link-grow pb-0.5 hover:text-plum">
                   {item.label}
                 </Link>
               </li>

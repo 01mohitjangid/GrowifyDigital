@@ -49,7 +49,7 @@ export default async function BlueprintPage({ params }: PageProps<"/[slug]">) {
         <div className="container-x py-16">
           <p className="inline-block rounded-full bg-lilac/50 px-3 py-1 text-xs">Page blueprint</p>
           <h2 className="mt-4 font-display text-4xl">Planned sections</h2>
-          <ol className="mt-8 divide-y divide-line border-y border-line">
+          <ol data-reveal="stagger" className="mt-8 divide-y divide-line border-y border-line">
             {page.sections.map((s, i) => (
               <li key={s.name} className="grid gap-2 py-6 md:grid-cols-[4rem_14rem_1fr]">
                 <span className="font-display text-2xl text-plum">0{i + 1}</span>
