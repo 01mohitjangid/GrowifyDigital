@@ -41,9 +41,9 @@ export function WhatsAppLink({ location, className = "hover:text-plum" }: { loca
 export function PageHeader({ eyebrow, title, children }: { eyebrow: string; title: string; children?: React.ReactNode }) {
   return (
     <header className="container-x pt-16 pb-12 md:pt-24 md:pb-16">
-      <p className="eyebrow">{eyebrow}</p>
-      <h1 className="mt-4 max-w-4xl font-display text-5xl leading-[1.05] md:text-7xl">{title}</h1>
-      {children && <div className="mt-6 max-w-2xl text-lg text-muted">{children}</div>}
+      <p className="eyebrow rise">{eyebrow}</p>
+      <h1 className="rise-solid mt-4 max-w-4xl font-display text-5xl leading-[1.05] md:text-7xl">{title}</h1>
+      {children && <div className="rise mt-6 max-w-2xl text-lg text-muted [animation-delay:150ms]">{children}</div>}
     </header>
   );
 }
