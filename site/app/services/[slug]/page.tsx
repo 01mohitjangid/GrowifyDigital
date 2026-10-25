@@ -57,7 +57,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
         <div className="container-x grid gap-12 py-16 md:grid-cols-2">
           <div>
             <h2 className="font-display text-4xl">What&apos;s included</h2>
-            <ul className="mt-8 space-y-4">
+            <ul data-reveal="stagger" className="mt-8 space-y-4">
               {service.includes.map((item) => (
                 <li key={item} className="flex gap-3 border-b border-line pb-4">
                   <span aria-hidden className="text-plum">
@@ -70,7 +70,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
           </div>
           <div>
             <h2 className="font-display text-4xl">How we work</h2>
-            <ol className="mt-8 space-y-4">
+            <ol data-reveal="stagger" className="mt-8 space-y-4">
               {service.process.map((step, i) => (
                 <li key={step} className="flex items-baseline gap-4 border-b border-line pb-4">
                   <span className="font-display text-2xl text-plum">0{i + 1}</span>
@@ -95,13 +95,15 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
       {study && (
         <section className="container-x py-16">
           <p className="eyebrow">Related work</p>
-          <Link href={`/case-studies/${study.slug}`} className="group mt-6 block rounded-2xl border border-line p-8 hover:border-ink md:p-12">
+          <Link href={`/case-studies/${study.slug}`} className="lift group mt-6 block rounded-2xl border border-line bg-white p-8 hover:border-ink md:p-12">
             <span className="font-display text-3xl md:text-4xl">{study.h1}</span>
             <span className="mt-4 block text-lg text-muted">
               {study.result}
               {study.resultVerify && <Verify />}
             </span>
-            <span className="mt-6 block text-sm group-hover:text-plum">Read the case study →</span>
+            <span className="mt-6 block text-sm group-hover:text-plum">
+              Read the case study <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+            </span>
           </Link>
         </section>
       )}

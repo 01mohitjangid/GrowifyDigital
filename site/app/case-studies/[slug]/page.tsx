@@ -54,7 +54,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
           <h2 id="outcomes" className="eyebrow text-lilac">
             Outcomes
           </h2>
-          <dl className="mt-8 grid gap-10 md:grid-cols-4">
+          <dl data-reveal="stagger" className="mt-8 grid gap-10 md:grid-cols-4">
             {study.outcomes.map((o) => (
               <div key={o.label} className="flex flex-col-reverse">
                 <dt className="mt-2 text-sm text-ivory/70">
@@ -90,7 +90,7 @@ export default async function CaseStudyPage({ params }: PageProps<"/case-studies
         <div>
           <h2 className="font-display text-4xl md:text-5xl">What Growify did</h2>
           {study.approach.map((a, i) => (
-            <section key={a.heading} className="mt-10 border-t border-line pt-8">
+            <section key={a.heading} data-reveal className="mt-10 border-t border-line pt-8">
               <h3 className="flex items-baseline gap-4 text-2xl font-medium">
                 <span className="font-display text-plum">0{i + 1}</span>
                 {a.heading}
