@@ -17,6 +17,13 @@
 
 :root {
   color-scheme: light;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
@@ -54,7 +61,19 @@ body {
   transition:
     background-color 0.2s,
     color 0.2s,
-    border-color 0.2s;
+    border-color 0.2s,
+    transform 0.2s var(--ease-out),
+    box-shadow 0.2s;
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px -14px rgb(28 22 34 / 0.45);
+    }
+  }
+  &:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: none;
+  }
 }
 
 :focus-visible {
@@ -72,33 +91,174 @@ body {
   }
 }
 
-.marquee {
-  animation: marquee 45s linear infinite;
-}
-
-.marquee:hover,
-.marquee-pause:checked ~ .marquee {
-  animation-play-state: paused;
-}
-
-@keyframes reveal {
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(1.5rem);
+    transform: translateY(1rem);
   }
 }
 
-@supports (animation-timeline: view()) {
+@keyframes rise-solid {
+  from {
+    transform: translateY(0.25em);
+  }
+}
+
+@keyframes draw {
+  from {
+    background-size: 0 0.06em;
+  }
+}
+
+@keyframes drift {
+  50% {
+    transform: translate(6%, 8%) scale(1.08);
+  }
+}
+
+@keyframes header-shade {
+  to {
+    box-shadow: 0 10px 30px -22px rgb(28 22 34 / 0.5);
+  }
+}
+
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+@layer components {
+  .marquee {
+    animation: marquee 45s linear infinite;
+  }
+
+  .marquee-pause:checked ~ .marquee-mask .marquee {
+    animation-play-state: paused;
+  }
+
+  .marquee-mask {
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .count {
+    --num: var(--to);
+    counter-reset: num var(--num);
+    transition: --num 1.6s var(--ease-out);
+  }
+
+  .count::before {
+    content: counter(num);
+  }
+
+  .underline-draw {
+    background: linear-gradient(currentColor, currentColor) 0 92% / 100% 0.06em no-repeat;
+  }
+
+  .link-grow {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition:
+      background-size 0.3s var(--ease-out),
+      color 0.2s;
+  }
+
+  .lift {
+    transition:
+      transform 0.3s var(--ease-out),
+      box-shadow 0.3s var(--ease-out),
+      border-color 0.2s,
+      background-color 0.2s;
+  }
+
+  @media (hover: hover) {
+    .marquee:hover {
+      animation-play-state: paused;
+    }
+    .link-grow:hover {
+      background-size: 100% 1px;
+    }
+    .lift:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 44px -28px rgb(28 22 34 / 0.45);
+    }
+  }
+
   @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 60%;
+    .rise {
+      animation: rise 0.7s var(--ease-out) both;
+    }
+    .rise-solid {
+      animation: rise-solid 0.8s var(--ease-out) both;
+    }
+    .underline-draw {
+      animation: draw 0.9s 0.6s var(--ease-out) both;
+    }
+    .aura {
+      animation: drift 18s ease-in-out 3;
+    }
+    @supports (animation-timeline: scroll()) {
+      .header-shade {
+        animation: header-shade linear both;
+        animation-timeline: scroll();
+        animation-range: 0 160px;
+      }
     }
   }
 }
 
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition:
+      opacity 0.7s var(--ease-out),
+      transform 0.7s var(--ease-out);
+  }
+  [data-reveal="stagger"] {
+    transition: none;
+  }
+  [data-reveal="stagger"] > * {
+    transition:
+      opacity 0.6s var(--ease-out),
+      transform 0.6s var(--ease-out);
+  }
+  [data-reveal]:not([data-reveal="stagger"]):not(.in),
+  [data-reveal="stagger"]:not(.in) > * {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  [data-reveal="stagger"] > :nth-child(2) {
+    transition-delay: 80ms;
+  }
+  [data-reveal="stagger"] > :nth-child(3) {
+    transition-delay: 160ms;
+  }
+  [data-reveal="stagger"] > :nth-child(4) {
+    transition-delay: 240ms;
+  }
+  [data-reveal="stagger"] > :nth-child(5) {
+    transition-delay: 320ms;
+  }
+  [data-reveal="stagger"] > :nth-child(n + 6) {
+    transition-delay: 400ms;
+  }
+  [data-reveal]:not(.in) .count {
+    --num: 0;
+  }
+}
+
+@media print {
+  [data-reveal],
+  [data-reveal] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .btn:hover,
+  .btn:active,
+  .lift:hover {
+    transform: none;
+  }
   .marquee {
     animation: none;
     width: 100%;
