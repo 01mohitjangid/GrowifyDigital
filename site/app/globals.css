@@ -116,6 +116,12 @@ body {
   }
 }
 
+@keyframes count-failsafe {
+  to {
+    --num: var(--to);
+  }
+}
+
 @keyframes header-shade {
   to {
     box-shadow: 0 10px 30px -22px rgb(28 22 34 / 0.5);
@@ -220,8 +226,8 @@ body {
       opacity 0.6s var(--ease-out),
       transform 0.6s var(--ease-out);
   }
-  [data-reveal]:not([data-reveal="stagger"]):not(.in),
-  [data-reveal="stagger"]:not(.in) > * {
+  [data-reveal-ready] [data-reveal]:not([data-reveal="stagger"]):not(.in),
+  [data-reveal-ready] [data-reveal="stagger"]:not(.in) > * {
     opacity: 0;
     transform: translateY(1.5rem);
   }
@@ -240,8 +246,12 @@ body {
   [data-reveal="stagger"] > :nth-child(n + 6) {
     transition-delay: 400ms;
   }
-  [data-reveal]:not(.in) .count {
+  html:not([data-reveal-ready]) .count,
+  [data-reveal-ready] [data-reveal]:not(.in) .count {
     --num: 0;
+  }
+  html:not([data-reveal-ready]) .count {
+    animation: count-failsafe 0s 5s forwards;
   }
 }
 

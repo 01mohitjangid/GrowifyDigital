@@ -7,11 +7,14 @@ export default function Reveal() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const targets = document.querySelectorAll("[data-reveal]:not(.in)");
-    if (!("IntersectionObserver" in window)) {
-      targets.forEach((el) => el.classList.add("in"));
-      return;
-    }
+    const targets = [...document.querySelectorAll("[data-reveal]:not(.in)")];
+    const inView = (el: Element) => {
+      const r = el.getBoundingClientRect();
+      return r.top < innerHeight && r.bottom > 0;
+    };
+    targets.filter(inView).forEach((el) => el.classList.add("in"));
+    document.documentElement.setAttribute("data-reveal-ready", "");
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -22,7 +25,7 @@ export default function Reveal() {
       },
       { rootMargin: "0px 0px -8% 0px" },
     );
-    targets.forEach((el) => observer.observe(el));
+    targets.filter((el) => !el.classList.contains("in")).forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [pathname]);
 
