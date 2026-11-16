@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { Photo } from "@/content/site";
 
 const depth = [
@@ -12,30 +12,38 @@ const depth = [
   { r: 6, y: 32, s: 0.84 },
 ];
 const SWIPE = 90;
+const noop = () => () => {};
 
 export default function PhotoStack({ photos }: { photos: Photo[] }) {
+  const hydrated = useSyncExternalStore(noop, () => true, () => false);
   const [order, setOrder] = useState(() => photos.map((_, i) => i));
   const [dx, setDx] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [leaving, setLeaving] = useState<-1 | 0 | 1>(0);
   const startX = useRef(0);
+  const busy = useRef(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+
+  useEffect(() => () => clearTimeout(timer.current), []);
 
   function next(dir: -1 | 1 = 1) {
-    if (leaving) return;
+    if (busy.current) return;
+    busy.current = true;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     setLeaving(dir);
-    setTimeout(
+    timer.current = setTimeout(
       () => {
         setOrder((o) => [...o.slice(1), o[0]]);
         setLeaving(0);
         setDx(0);
+        busy.current = false;
       },
       reduced ? 0 : 320,
     );
   }
 
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
-    if (leaving || e.button !== 0) return;
+    if (busy.current || e.button !== 0) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     startX.current = e.clientX;
     setDragging(true);
@@ -53,11 +61,12 @@ export default function PhotoStack({ photos }: { photos: Photo[] }) {
   }
 
   const top = photos[order[0]];
+  const visible = hydrated ? order : order.slice(0, 1);
 
   return (
     <div className="select-none">
       <div role="group" aria-roledescription="photo stack" aria-label="Photos of the Growify office" className="relative aspect-video">
-        {order.map((photoIndex, d) => {
+        {visible.map((photoIndex, d) => {
           const photo = photos[photoIndex];
           const isTop = d === 0;
           const pos = depth[Math.min(d, depth.length - 1)];
