@@ -30,7 +30,7 @@ export default function ServicesPage() {
               </span>
               <span className="text-muted">{s.summary}</span>
               <span className="text-sm group-hover:text-plum">
-                Explore <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+                Explore <span aria-hidden className="nudge">→</span>
               </span>
             </Link>
           </li>

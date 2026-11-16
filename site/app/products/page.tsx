@@ -37,7 +37,7 @@ export default function ProductsPage() {
                 <div className="flex flex-col justify-between gap-8">
                   <p className="text-xl text-ivory/85">{p.summary}</p>
                   <span className="text-sm">
-                    See how {p.name} works <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+                    See how {p.name} works <span aria-hidden className="nudge">→</span>
                   </span>
                 </div>
               </Link>

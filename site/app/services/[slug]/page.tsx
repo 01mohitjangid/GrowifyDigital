@@ -102,7 +102,7 @@ export default async function ServicePage({ params }: PageProps<"/services/[slug
               {study.resultVerify && <Verify />}
             </span>
             <span className="mt-6 block text-sm group-hover:text-plum">
-              Read the case study <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+              Read the case study <span aria-hidden className="nudge">→</span>
             </span>
           </Link>
         </section>

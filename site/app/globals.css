@@ -168,6 +168,37 @@ body {
       color 0.2s;
   }
 
+  .nudge {
+    display: inline-block;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nudge-up {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .aura-a,
+  .aura-b {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .aura-a {
+    top: -33%;
+    right: -10%;
+    width: 38rem;
+    height: 38rem;
+    background: radial-gradient(closest-side, rgb(205 188 242 / 0.55), transparent);
+  }
+
+  .aura-b {
+    bottom: -30%;
+    left: -15%;
+    width: 30rem;
+    height: 30rem;
+    background: radial-gradient(closest-side, rgb(75 46 99 / 0.12), transparent);
+  }
+
   .lift {
     transition:
       transform 0.3s var(--ease-out),
@@ -199,8 +230,20 @@ body {
     .underline-draw {
       animation: draw 0.9s 0.6s var(--ease-out) both;
     }
-    .aura {
+    .aura-a,
+    .aura-b {
       animation: drift 18s ease-in-out 3;
+    }
+    .aura-b {
+      animation-delay: -9s;
+    }
+    @media (hover: hover) {
+      .group:hover .nudge {
+        transform: translateX(0.25rem);
+      }
+      .group:hover .nudge-up {
+        transform: translateY(-0.25rem);
+      }
     }
     @supports (animation-timeline: scroll()) {
       .header-shade {
