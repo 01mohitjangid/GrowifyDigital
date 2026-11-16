@@ -317,6 +317,9 @@ body {
     width: 100%;
     flex-shrink: 1;
   }
+  .marquee-mask {
+    mask-image: none;
+  }
   .marquee > ul {
     flex-shrink: 1;
     flex-wrap: wrap;

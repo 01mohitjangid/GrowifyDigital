@@ -122,7 +122,7 @@ export default function Home() {
           {services.map((s) => (
             <li key={s.slug} className="bg-ivory">
               <Link href={`/services/${s.slug}`} className="group relative flex h-full flex-col p-8 transition-colors duration-300 hover:bg-white">
-                <span className="font-display text-5xl text-plum transition-transform duration-300 ease-out motion-safe:group-hover:-translate-y-1">{s.letter}</span>
+                <span className="nudge-up font-display text-5xl text-plum">{s.letter}</span>
                 <span className="eyebrow mt-6">{s.move}</span>
                 <span className="mt-2 text-xl font-medium">{s.name}</span>
                 <span className="mt-3 text-sm text-muted">{s.summary}</span>
