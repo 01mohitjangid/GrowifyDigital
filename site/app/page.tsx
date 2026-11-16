@@ -7,7 +7,7 @@ import { caseStudies, clients, officePhotos, partnerGroups, products, services, 
 
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
-const arrow = "inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1";
+const arrow = "nudge";
 
 export default function Home() {
   const scale = services.filter((s) => s.letter.length === 1);
@@ -16,8 +16,8 @@ export default function Home() {
     <>
       <section className="relative isolate overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          <div className="aura absolute -top-1/3 right-[-10%] h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(closest-side,rgb(205_188_242/0.55),transparent)]" />
-          <div className="aura absolute bottom-[-30%] left-[-15%] h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(closest-side,rgb(75_46_99/0.12),transparent)] [animation-delay:-9s]" />
+          <div className="aura-a" />
+          <div className="aura-b" />
         </div>
         <div className="container-x grid gap-12 pt-16 pb-20 md:grid-cols-[1.5fr_1fr] md:items-end md:pt-28">
           <div>
@@ -41,7 +41,7 @@ export default function Home() {
             {scale.map((s, i) => (
               <li key={s.slug} className="rise" style={{ animationDelay: `${350 + i * 80}ms` }}>
                 <Link href={`/services/${s.slug}`} className="group flex items-baseline gap-4 border-b border-line py-3 transition-colors hover:border-ink">
-                  <span aria-hidden className="w-6 font-display text-3xl text-plum transition-transform duration-300 ease-out motion-safe:group-hover:-translate-y-0.5">
+                  <span aria-hidden className="nudge-up w-6 font-display text-3xl text-plum">
                     {s.letter}
                   </span>
                   <span className="text-sm font-medium">{s.move}</span>
@@ -64,7 +64,10 @@ export default function Home() {
               s.value
             ) : (
               <>
-                <span aria-hidden className="count" style={{ "--to": n } as React.CSSProperties} />
+                <span aria-hidden className="inline-grid text-right">
+                  <span className="invisible col-start-1 row-start-1">{String(n).replace(/\d/g, "0")}</span>
+                  <span className="count col-start-1 row-start-1" style={{ "--to": n } as React.CSSProperties} />
+                </span>
                 <span aria-hidden>{s.value.slice(String(n).length)}</span>
                 <span className="sr-only">{s.value}</span>
               </>
@@ -119,7 +122,7 @@ export default function Home() {
           {services.map((s) => (
             <li key={s.slug} className="bg-ivory">
               <Link href={`/services/${s.slug}`} className="group relative flex h-full flex-col p-8 transition-colors duration-300 hover:bg-white">
-                <span className="font-display text-5xl text-plum transition-transform duration-300 ease-out motion-safe:group-hover:-translate-y-1">{s.letter}</span>
+                <span className="nudge-up font-display text-5xl text-plum">{s.letter}</span>
                 <span className="eyebrow mt-6">{s.move}</span>
                 <span className="mt-2 text-xl font-medium">{s.name}</span>
                 <span className="mt-3 text-sm text-muted">{s.summary}</span>

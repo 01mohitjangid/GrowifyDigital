@@ -34,7 +34,7 @@ export default function CaseStudiesPage() {
                 ))}
               </span>
               <span className="mt-10 text-sm">
-                Read the case study <span aria-hidden className="inline-block transition-transform duration-300 ease-out motion-safe:group-hover:translate-x-1">→</span>
+                Read the case study <span aria-hidden className="nudge">→</span>
               </span>
             </Link>
           </li>

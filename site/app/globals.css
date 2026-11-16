@@ -116,6 +116,12 @@ body {
   }
 }
 
+@keyframes count-failsafe {
+  to {
+    --num: var(--to);
+  }
+}
+
 @keyframes header-shade {
   to {
     box-shadow: 0 10px 30px -22px rgb(28 22 34 / 0.5);
@@ -162,6 +168,37 @@ body {
       color 0.2s;
   }
 
+  .nudge {
+    display: inline-block;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .nudge-up {
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .aura-a,
+  .aura-b {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  .aura-a {
+    top: -33%;
+    right: -10%;
+    width: 38rem;
+    height: 38rem;
+    background: radial-gradient(closest-side, rgb(205 188 242 / 0.55), transparent);
+  }
+
+  .aura-b {
+    bottom: -30%;
+    left: -15%;
+    width: 30rem;
+    height: 30rem;
+    background: radial-gradient(closest-side, rgb(75 46 99 / 0.12), transparent);
+  }
+
   .lift {
     transition:
       transform 0.3s var(--ease-out),
@@ -193,8 +230,20 @@ body {
     .underline-draw {
       animation: draw 0.9s 0.6s var(--ease-out) both;
     }
-    .aura {
+    .aura-a,
+    .aura-b {
       animation: drift 18s ease-in-out 3;
+    }
+    .aura-b {
+      animation-delay: -9s;
+    }
+    @media (hover: hover) {
+      .group:hover .nudge {
+        transform: translateX(0.25rem);
+      }
+      .group:hover .nudge-up {
+        transform: translateY(-0.25rem);
+      }
     }
     @supports (animation-timeline: scroll()) {
       .header-shade {
@@ -220,8 +269,8 @@ body {
       opacity 0.6s var(--ease-out),
       transform 0.6s var(--ease-out);
   }
-  [data-reveal]:not([data-reveal="stagger"]):not(.in),
-  [data-reveal="stagger"]:not(.in) > * {
+  [data-reveal-ready] [data-reveal]:not([data-reveal="stagger"]):not(.in),
+  [data-reveal-ready] [data-reveal="stagger"]:not(.in) > * {
     opacity: 0;
     transform: translateY(1.5rem);
   }
@@ -240,8 +289,12 @@ body {
   [data-reveal="stagger"] > :nth-child(n + 6) {
     transition-delay: 400ms;
   }
-  [data-reveal]:not(.in) .count {
+  html:not([data-reveal-ready]) .count,
+  [data-reveal-ready] [data-reveal]:not(.in) .count {
     --num: 0;
+  }
+  html:not([data-reveal-ready]) .count {
+    animation: count-failsafe 0s 5s forwards;
   }
 }
 
@@ -263,6 +316,9 @@ body {
     animation: none;
     width: 100%;
     flex-shrink: 1;
+  }
+  .marquee-mask {
+    mask-image: none;
   }
   .marquee > ul {
     flex-shrink: 1;
