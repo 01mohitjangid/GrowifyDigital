@@ -2,6 +2,7 @@ import Link from "next/link";
 import { nav } from "@/content/site";
 import { ButtonLink } from "./ui";
 import MobileMenu from "./MobileMenu";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
@@ -24,12 +25,15 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-        <div className="hidden md:block">
-          <ButtonLink href="/contact" location="header">
-            Work with us
-          </ButtonLink>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <div className="hidden md:block">
+            <ButtonLink href="/contact" location="header">
+              Work with us
+            </ButtonLink>
+          </div>
+          <MobileMenu items={[...nav, { href: "/contact", label: "Work with us" }]} />
         </div>
-        <MobileMenu items={[...nav, { href: "/contact", label: "Work with us" }]} />
       </div>
     </header>
   );
