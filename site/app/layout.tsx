@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   robots: isLive ? undefined : { index: false, follow: false },
 };
 
+// Runs before paint so the saved or system theme applies without a flash.
+const themeScript = `try{var t=localStorage.getItem("theme")}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")`;
+
 const organization = {
   "@context": "https://schema.org",
   ...orgRef,
@@ -36,7 +39,10 @@ const organization = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-IN" data-scroll-behavior="smooth" className={`${inter.variable} ${serif.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" suppressHydrationWarning className={`${inter.variable} ${serif.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <JsonLd data={organization} />
         <Header />

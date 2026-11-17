@@ -18,6 +18,39 @@
 :root {
   color-scheme: light;
   --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --aura-a: rgb(205 188 242 / 0.55);
+  --aura-b: rgb(75 46 99 / 0.12);
+}
+
+/* Dark theme: same token names, so every page follows without per-component changes. */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink: #ece7f1;
+  --color-ivory: #141017;
+  --color-sand: #1e1924;
+  --color-white: #1c1721;
+  --color-plum: #c3a6ec;
+  --color-lilac: #4a3a66;
+  --color-muted: #a59cb0;
+  --color-line: rgb(236 231 241 / 0.14);
+  --aura-a: rgb(120 86 180 / 0.28);
+  --aura-b: rgb(195 166 236 / 0.08);
+}
+
+/* Inverted panels (bg-ink) stay dark in dark mode, with their light-mode accents. */
+[data-theme="dark"] .bg-ink {
+  --color-ink: #2a2233;
+  --color-ivory: #f3eef7;
+  --color-plum: #4b2e63;
+  --color-lilac: #cdbcf2;
+}
+
+.theme-icon-sun,
+[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+[data-theme="dark"] .theme-icon-sun {
+  display: block;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -29,6 +62,9 @@
 body {
   background: var(--color-ivory);
   color: var(--color-ink);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
 }
 
 @utility container-x {
@@ -188,7 +224,7 @@ body {
     right: -10%;
     width: 38rem;
     height: 38rem;
-    background: radial-gradient(closest-side, rgb(205 188 242 / 0.55), transparent);
+    background: radial-gradient(closest-side, var(--aura-a), transparent);
   }
 
   .aura-b {
@@ -196,7 +232,7 @@ body {
     left: -15%;
     width: 30rem;
     height: 30rem;
-    background: radial-gradient(closest-side, rgb(75 46 99 / 0.12), transparent);
+    background: radial-gradient(closest-side, var(--aura-b), transparent);
   }
 
   .lift {
